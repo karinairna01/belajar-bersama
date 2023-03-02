@@ -1,2 +1,2 @@
-<?php 
-    echo "Hallo Dunia";
+<?php
+echo "Hallo Dunia";
