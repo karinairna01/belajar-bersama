@@ -3,18 +3,20 @@
 $conn = mysqli_connect("localhost", "root", "", "phpdasar");
 
 
-function query($query) {
+function query($query)
+{
     global $conn;
     $result = mysqli_query($conn, $query);
     $rows = [];
-    while( $row = mysqli_fetch_assoc($result)) {
+    while ($row = mysqli_fetch_assoc($result)) {
         $rows[] = $row;
     }
     return $rows;
 }
 
 
-function tambah($data) {
+function tambah($data)
+{
     global $conn;
 
     $nama = htmlspecialchars($data["nama"]);
@@ -24,9 +26,8 @@ function tambah($data) {
 
     //upload gambar
     $gambar = upload();
-    if( !$gambar ){
+    if (!$gambar) {
         return false;
-
     }
 
     $query = "INSERT INTO mahasiswa
@@ -36,19 +37,19 @@ function tambah($data) {
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
-
 }
 
 
-function upload(){
-    
+function upload()
+{
+
     $namaFile = $_FILES['gambar']['name'];
     $ukuranFile = $_FILES['gambar']['size'];
     $error = $_FILES['gambar']['error'];
     $tmpName = $_FILES['gambar']['tmp_name'];
 
     //cek apakah tidak ada gambar yg diupload
-    if( $error === 4) {
+    if ($error === 4) {
         echo "<script>
                 alert('pilih gambar terlebih dahulu');
                 </script>";
@@ -59,7 +60,7 @@ function upload(){
     $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
     $ekstensiGambar = explode('.', $namaFile);
     $ekstensiGambar = strtolower(end($ekstensiGambar));
-    if( !in_array($ekstensiGambar, $ekstensiGambarValid)) {
+    if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
         echo "<script>
                 alert('yang Anda upload bukan gambar!');
                 </script>";
@@ -67,7 +68,7 @@ function upload(){
     }
 
     //cek jika ukuran terlalu besar
-    if( $ukuranFile > 1000000 ) {
+    if ($ukuranFile > 1000000) {
         echo "<script>
                 alert('ukuran gambar terlalu besar!');
                 </script>";
@@ -79,7 +80,7 @@ function upload(){
     $namaFileBaru = uniqid();
     $namaFileBaru .= '.';
     $namaFileBaru .= $ekstensiGambar;
-    
+
 
 
     move_uploaded_file($tmpName, 'img/' . $namaFileBaru);
@@ -88,7 +89,8 @@ function upload(){
 }
 
 
-function hapus($id) {
+function hapus($id)
+{
     global $conn;
     mysqli_query($conn, "DELETE FROM mahasiswa WHERE id = $id");
     return mysqli_affected_rows($conn);
@@ -96,7 +98,8 @@ function hapus($id) {
 
 
 
-function ubah($data) {
+function ubah($data)
+{
     global $conn;
 
     $id = $data["id"];
@@ -107,12 +110,12 @@ function ubah($data) {
     $gambarLama = htmlspecialchars($data["gambarLama"]);
 
     // cek apakah user pilih gambar baru atau tidak
-    if( $_FILES['gambar']['error'] === 4 ) {
+    if ($_FILES['gambar']['error'] === 4) {
         $gambar = $gambarLama;
     } else {
         $gambar = upload();
     }
-    
+
     $query = "UPDATE mahasiswa SET
                 nama = '$nama',
                 nim = '$nim',
@@ -126,11 +129,11 @@ function ubah($data) {
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
-
 }
 
 
-function cari($keyword) {
+function cari($keyword)
+{
     $query = "SELECT * FROM mahasiswa 
                WHERE
              nama LIKE '%$keyword%' OR
@@ -143,7 +146,8 @@ function cari($keyword) {
 
 
 
-function registrasi($data) {
+function registrasi($data)
+{
     global $conn;
 
     $username = strtolower(stripslashes($data["username"]));
@@ -152,8 +156,8 @@ function registrasi($data) {
 
     //cek username sudah ada atau belum
     $result = mysqli_query($conn, "SELECT username FROM user WHERE username = '$username'");
-    
-    if( mysqli_fetch_assoc($result) ) {
+
+    if (mysqli_fetch_assoc($result)) {
         echo "<script>
             alert('username sudah terdaftar!');
         </script>";
@@ -162,7 +166,7 @@ function registrasi($data) {
 
 
     //cek konfirmasi password
-    if( $password !== $password2 ) {
+    if ($password !== $password2) {
         echo "<script>
              alert('konfirmasi password tidak sesuai');
          </script>";
@@ -177,5 +181,4 @@ function registrasi($data) {
     mysqli_query($conn, "INSERT INTO user VALUES(NULL, '$username', '$password')");
 
     return mysqli_affected_rows($conn);
-
 }
