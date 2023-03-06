@@ -5,14 +5,7 @@
 // ternary
 // switch
 
-// $x = 10;
-// if( $x < 20 ) {
-//     echo "benar";
-// } else {
-//     echo "salah";
-// }
-
-$x = 2;
+$x = 20;
 if( $x < 20 ) {
     echo "benar";
 } elseif( $x == 20) {

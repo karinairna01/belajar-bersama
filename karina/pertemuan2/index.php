@@ -3,16 +3,6 @@
 // Pertemuan 2 - PHP Dasar
 // Sintaks PHP
 
-// Standar Output
-// echo, print (mencetak)
-// print_r
-// var_dump
-
-
-//Penulisan sintaks PHP
-// 1. PHP di dalam HTML
-// 2. HTML di dalam PHP
-
 ?>
 
 <!DOCTYPE html>

@@ -6,25 +6,6 @@
 // do.. while
 // foreach : pengulangan khusus array
 
-// for( $i = 0; $i < 5; $i++ ) {
-//     echo " Hello World! <br>";
-// }
-
-
-// cek kondisi, ketika true baru dijalankan
-// $i = 0;
-// while( $i < 5 ){
-//     echo " Hello World! <br>";
-// $i++;
-// }
-
-
-//lakukan hal ini selama kondisi bernilai true, ketika kondisi false maka bloknya akan dijalankan dulu satu kali, while tdk akan jalan jika kondisi false
-// $i = 10;
-// do {
-//     echo "Hello World! <br>";
-// $i++;
-// } while( $i < 5);
 
 ?>
 
