@@ -14,10 +14,10 @@ function query($query)
 
 function upload()
 {
-    $photoName = $_FILES['photo']['name'];
-    $photoTmpName = $_FILES['photo']['tmp_name'];
-    $photoError = $_FILES['photo']['error'];
-    $photoSize = $_FILES['photo']['size'];
+    $photoName = $_FILES['gambar']['name'];
+    $photoTmpName = $_FILES['gambar']['tmp_name'];
+    $photoError = $_FILES['gambar']['error'];
+    $photoSize = $_FILES['gambar']['size'];
 
     if ($photoError === 4) {
         echo "<script>alert('Silahkan pilih foto terlebih dahulu!')</script>";
@@ -46,17 +46,18 @@ function upload()
 function add($data)
 {
     global $conn;
-    $name = $data['name'];
+    $nama = $data['nama'];
+    $nim = $data['nim'];
     $email = $data['email'];
-    $prodi = $data['prodi'];
+    $jurusan = $data['jurusan'];
 
     if (!upload()) {
         return false;
     }
 
-    $photo = upload();
+    $gambar = upload();
 
-    $query = "INSERT INTO students VALUES (NULL ,'$name', '$email', '$prodi', '$photo')";
+    $query = "INSERT INTO mahasiswa VALUES (NULL ,'$nama','$nim', '$email', '$jurusan', '$gambar')";
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
@@ -66,22 +67,24 @@ function update($data)
 {
     global $conn;
     $id = $data['id'];
-    $name = $data['name'];
+    $nama = $data['nama'];
+    $nim = $data['nim'];
     $email = $data['email'];
-    $prodi = $data['prodi'];
+    $jurusan = $data['jurusan'];
     $oldPhoto = $data['oldPhoto'];
 
-    if ($_FILES['photo']['error'] === 4) {
+    if ($_FILES['gambar']['error'] === 4) {
         $photo = $oldPhoto;
     } else {
         $photo = upload();
     }
 
-    $query = "UPDATE students SET 
-        name='$name', 
+    $query = "UPDATE mahasiswa SET 
+        nama='$nama', 
+        nim='$nim', 
         email='$email', 
-        prodi='$prodi', 
-        photo='$photo' WHERE id = $id
+        jurusan='$jurusan', 
+        gambar='$photo' WHERE id = $id
         ";
     mysqli_query($conn, $query);
 
@@ -90,7 +93,7 @@ function update($data)
 
 function cari($keyword)
 {
-    $query = "SELECT * FROM students WHERE name LIKE '%$keyword%'";
+    $query = "SELECT * FROM mahasiswa WHERE name LIKE '%$keyword%'";
 
     return query($query);
 }

@@ -2,7 +2,7 @@
 require 'functions.php';
 $id = $_GET['id'];
 
-mysqli_query($conn, "DELETE FROM students WHERE id=$id");
+mysqli_query($conn, "DELETE FROM mahasiswa WHERE id=$id");
 
 $result = mysqli_affected_rows($conn);
 
