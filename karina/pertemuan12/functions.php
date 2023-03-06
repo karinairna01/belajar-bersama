@@ -1,6 +1,6 @@
 <?php
 //koneksi database
-$conn = mysqli_connect("localhost", "root", "", "phpdasar");
+$conn = mysqli_connect("localhost", "root", "", "karinphp");
 
 
 function query($query) {
@@ -79,5 +79,3 @@ function cari($keyword) {
              ";
     return query($query);
 }
-
-?>
